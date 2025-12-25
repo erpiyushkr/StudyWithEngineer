@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>StudyWithEngineer | Engineering Minds Teaching School Minds</title>
+
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
+    <!-- Favicon & App Icons -->
+    <link rel="icon" type="image/png" href="components/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="components/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="components/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="components/favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="StudyWithEngineer" />
+    <link rel="manifest" href="components/favicon/site.webmanifest" />
+    <meta name="theme-color" content="#ff0000">
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#FF0000",
+                        "primary-hover": "#D90000",
+                        "accent-black": "#000000",
+                        "background-light": "#ffffff",
+                        "background-dark": "#050505",
+                        "card-dark": "#0f0f0f",
+                        "border-dark": "#262626",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-glow': 'pulse-glow 3s infinite',
+                        'shimmer': 'shimmer 2.5s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        'pulse-glow': {
+                            '0%, 100%': { opacity: '0.6', transform: 'scale(1)' },
+                            '50%': { opacity: '1', transform: 'scale(1.05)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-1000px 0' },
+                            '100%': { backgroundPosition: '1000px 0' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+
+    <style type="text/tailwindcss">
+        .glass-panel {
+            @apply bg-white/5 backdrop-blur-xl border border-white/10;
+        }
+        .glass-card {
+            @apply bg-[#0f0f0f] border border-[#262626] hover:border-primary/50 transition-colors duration-300;
+        }
+        .text-gradient {
+            @apply bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-gray-400;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FF0000;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-black dark:text-gray-100 font-body antialiased">
+    <nav class="sticky top-0 z-50 w-full border-b border-white/5 bg-background-dark/80 backdrop-blur-md">
+        <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex h-20 items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div
+                        class="flex h-10 w-10 items-center justify-center rounded-full bg-white relative overflow-hidden shadow-[0_0_15px_rgba(255,0,0,0.3)]">
+                        <div class="font-display font-bold text-black text-xl tracking-tighter relative z-10">
+                            S<span class="text-primary">E</span>
+                        </div>
+                    </div>
+                    <h1 class="text-xl font-bold tracking-tight text-white font-display">StudyWith<span
+                            class="text-primary">Engineer</span></h1>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a class="text-sm font-medium hover:text-primary transition-colors text-gray-300"
+                        href="index.html">Home</a>
+                    <a class="text-sm font-medium hover:text-primary transition-colors text-gray-300"
+                        href="#classes">Classes</a>
+                    <a class="text-sm font-medium hover:text-primary transition-colors text-gray-300"
+                        href="#resources">Resources</a>
+                    <a class="text-sm font-medium hover:text-primary transition-colors text-gray-300"
+                        href="#ncert">NCERT Solution</a>
+                    <button
+                        class="bg-primary hover:bg-primary-hover text-white px-6 py-2.5 rounded-full text-sm font-bold transition-all transform active:scale-95 shadow-[0_0_15px_rgba(255,0,0,0.4)] hover:shadow-[0_0_25px_rgba(255,0,0,0.6)]">
+                        Contact us
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" class="md:hidden p-2 text-gray-400 hover:text-white">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+            </div>
+
+            <!-- Mobile Menu (Hidden by default) -->
+            <div id="mobile-menu" class="md:hidden hidden border-t border-white/10 mt-2 py-4">
+                <div class="flex flex-col space-y-4">
+                    <a class="text-sm font-medium hover:text-primary transition-colors text-gray-300 py-2"
+                        href="index.html">Home</a>
+                    <a class="text-sm font-medium hover:text-primary transition-colors text-gray-300 py-2"
+                        href="#classes">Classes</a>
+                    <a class="text-sm font-medium hover:text-primary transition-colors text-gray-300 py-2"
+                        href="#resources">Resources</a>
+                    <a class="text-sm font-medium hover:text-primary transition-colors text-gray-300 py-2"
+                        href="#ncert">NCERT Solution</a>
+                    <button
+                        class="bg-primary hover:bg-primary-hover text-white px-6 py-2.5 rounded-full text-sm font-bold transition-all transform active:scale-95 shadow-[0_0_15px_rgba(255,0,0,0.4)] hover:shadow-[0_0_25px_rgba(255,0,0,0.6)] w-fit mt-2">
+                        Contact us
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        // Mobile menu toggle functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', function () {
+                    mobileMenu.classList.toggle('hidden');
+                    mobileMenu.classList.toggle('block');
+
+                    // Toggle menu icon
+                    const icon = mobileMenuButton.querySelector('.material-symbols-outlined');
+                    if (mobileMenu.classList.contains('hidden')) {
+                        icon.textContent = 'menu';
+                    } else {
+                        icon.textContent = 'close';
+                    }
+                });
+            }
+
+            // Close mobile menu when clicking on a link
+            const mobileLinks = mobileMenu.querySelectorAll('a, button');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', function () {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.remove('block');
+                    mobileMenuButton.querySelector('.material-symbols-outlined').textContent = 'menu';
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
