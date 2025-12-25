@@ -157,36 +157,71 @@
     </nav>
 
     <script>
-        // Mobile menu toggle functionality
-        document.addEventListener('DOMContentLoaded', function () {
+        // Mobile menu toggle functionality - simplified for dynamic loading
+        function initMobileMenu() {
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
 
             if (mobileMenuButton && mobileMenu) {
-                mobileMenuButton.addEventListener('click', function () {
-                    mobileMenu.classList.toggle('hidden');
-                    mobileMenu.classList.toggle('block');
+                // Remove any existing event listeners to prevent duplicates
+                const newButton = mobileMenuButton.cloneNode(true);
+                mobileMenuButton.parentNode.replaceChild(newButton, mobileMenuButton);
+
+                const newMenu = mobileMenu.cloneNode(true);
+                mobileMenu.parentNode.replaceChild(newMenu, mobileMenu);
+
+                // Get fresh references after cloning
+                const freshButton = document.getElementById('mobile-menu-button');
+                const freshMenu = document.getElementById('mobile-menu');
+
+                freshButton.addEventListener('click', function () {
+                    freshMenu.classList.toggle('hidden');
+                    freshMenu.classList.toggle('block');
 
                     // Toggle menu icon
-                    const icon = mobileMenuButton.querySelector('.material-symbols-outlined');
-                    if (mobileMenu.classList.contains('hidden')) {
+                    const icon = freshButton.querySelector('.material-symbols-outlined');
+                    if (freshMenu.classList.contains('hidden')) {
                         icon.textContent = 'menu';
                     } else {
                         icon.textContent = 'close';
                     }
                 });
-            }
 
-            // Close mobile menu when clicking on a link
-            const mobileLinks = mobileMenu.querySelectorAll('a, button');
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', function () {
-                    mobileMenu.classList.add('hidden');
-                    mobileMenu.classList.remove('block');
-                    mobileMenuButton.querySelector('.material-symbols-outlined').textContent = 'menu';
+                // Close mobile menu when clicking on links
+                const mobileLinks = freshMenu.querySelectorAll('a, button');
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', function () {
+                        freshMenu.classList.add('hidden');
+                        freshMenu.classList.remove('block');
+                        const icon = freshButton.querySelector('.material-symbols-outlined');
+                        if (icon) {
+                            icon.textContent = 'menu';
+                        }
+                    });
                 });
+
+                return true;
+            }
+            return false;
+        }
+
+        // Export function for main page to call
+        window.initMobileMenu = initMobileMenu;
+
+        // Auto-init if this file is loaded directly (not via component)
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function () {
+                // Only run if not being loaded as a component
+                if (!window.isComponentLoading) {
+                    initMobileMenu();
+                }
             });
-        });
+        } else {
+            // DOM already loaded, run immediately
+            if (!window.isComponentLoading) {
+                initMobileMenu();
+            }
+        }
     </script>
 </body>
 

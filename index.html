@@ -646,7 +646,7 @@
     <script>
         // Function to load HTML content into a placeholder
         function loadComponent(placeholderId, filePath) {
-            fetch(filePath)
+            return fetch(filePath)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`Failed to load ${filePath}: ${response.status}`);
@@ -676,6 +676,7 @@
                             document.head.appendChild(newScript);
                         }
                     }
+                    return true;
                 })
                 .catch(error => {
                     console.error('Error loading component:', error);
@@ -683,51 +684,131 @@
                     if (placeholder) {
                         placeholder.innerHTML = `<div class="text-center p-4 text-red-500">Failed to load ${filePath}</div>`;
                     }
+                    return false;
                 });
         }
 
-        // Load header and footer when DOM is ready
+        // Load components in correct order: Header → Content → Footer
         document.addEventListener('DOMContentLoaded', function () {
-            loadComponent('header-placeholder', '../components/header.html');
-            loadComponent('footer-placeholder', '../components/footer.html');
-
-            // Performance monitoring
-            const perfEntries = performance.getEntriesByType("navigation");
-            if (perfEntries.length > 0) {
-                const navEntry = perfEntries[0];
-                console.log(`Page loaded in ${navEntry.loadEventEnd - navEntry.startTime}ms`);
+            // First, hide main content to prevent FOUC (Flash of Unstyled Content)
+            const mainContent = document.querySelector('main');
+            if (mainContent) {
+                mainContent.style.opacity = '0';
             }
+
+            // Load header first
+            loadComponent('header-placeholder', '../components/header.html')
+                .then(headerLoaded => {
+                    if (headerLoaded) {
+                        // Wait for header to be fully rendered
+                        setTimeout(() => {
+                            // Show main content
+                            if (mainContent) {
+                                mainContent.style.opacity = '1';
+                                mainContent.style.transition = 'opacity 0.3s ease-in';
+                            }
+
+                            // Load footer after content is visible
+                            loadComponent('footer-placeholder', '../components/footer.html')
+                                .then(() => {
+                                    // Now attach event listeners to the loaded components
+                                    attachEventListeners();
+                                });
+                        }, 50);
+                    } else {
+                        // If header fails, still try to load footer and show content
+                        if (mainContent) {
+                            mainContent.style.opacity = '1';
+                        }
+                        loadComponent('footer-placeholder', '../components/footer.html');
+                    }
+                });
         });
 
-        // Fallback: Load components on window load as well
+        // Fallback: Load components on window load
         window.addEventListener('load', function () {
-            if (document.getElementById('header-placeholder') && document.getElementById('header-placeholder').innerHTML === '') {
+            // Check if components loaded, if not, try again
+            const headerPlaceholder = document.getElementById('header-placeholder');
+            const footerPlaceholder = document.getElementById('footer-placeholder');
+
+            if (headerPlaceholder && headerPlaceholder.innerHTML === '') {
                 loadComponent('header-placeholder', '../components/header.html');
             }
-            if (document.getElementById('footer-placeholder') && document.getElementById('footer-placeholder').innerHTML === '') {
+            if (footerPlaceholder && footerPlaceholder.innerHTML === '') {
                 loadComponent('footer-placeholder', '../components/footer.html');
             }
         });
 
-        // Add smooth scroll behavior for anchor links
-        document.addEventListener('click', function (e) {
-            if (e.target.matches('a[href^="#"]')) {
-                e.preventDefault();
-                const targetId = e.target.getAttribute('href');
-                if (targetId === '#') return;
+        // Function to attach event listeners after components are loaded
+        function attachEventListeners() {
+            // Mobile menu functionality
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
 
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', function () {
+                    mobileMenu.classList.toggle('hidden');
+                    mobileMenu.classList.toggle('block');
+
+                    // Toggle menu icon
+                    const icon = mobileMenuButton.querySelector('.material-symbols-outlined');
+                    if (mobileMenu.classList.contains('hidden')) {
+                        icon.textContent = 'menu';
+                    } else {
+                        icon.textContent = 'close';
+                    }
+                });
+
+                // Close mobile menu when clicking on links
+                const mobileLinks = mobileMenu.querySelectorAll('a, button');
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', function () {
+                        mobileMenu.classList.add('hidden');
+                        mobileMenu.classList.remove('block');
+                        if (mobileMenuButton.querySelector('.material-symbols-outlined')) {
+                            mobileMenuButton.querySelector('.material-symbols-outlined').textContent = 'menu';
+                        }
                     });
-                }
+                });
             }
-        });
+
+            // Smooth scroll behavior for anchor links
+            document.addEventListener('click', function (e) {
+                if (e.target.matches('a[href^="#"]') ||
+                    (e.target.closest('a') && e.target.closest('a').href.includes('#'))) {
+                    e.preventDefault();
+                    const targetId = e.target.getAttribute('href') ||
+                        (e.target.closest('a') && e.target.closest('a').getAttribute('href'));
+                    if (!targetId || targetId === '#') return;
+
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        // Calculate offset for fixed header
+                        const headerHeight = document.querySelector('nav')?.offsetHeight || 80;
+                        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+
+                        window.scrollTo({
+                            top: targetPosition - headerHeight,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+
+            // Add CSS for smooth transitions
+            const style = document.createElement('style');
+            style.textContent = `
+            main {
+                transition: opacity 0.3s ease-in;
+            }
+        `;
+            document.head.appendChild(style);
+        }
 
         // Add viewport tracking for analytics
         let lastScrollTop = 0;
+        let scrollDepthTracked = [false, false, false, false]; // 25%, 50%, 75%, 100%
+
         window.addEventListener('scroll', function () {
             const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
@@ -737,17 +818,21 @@
             const scrollPercent = (currentScroll / (docHeight - windowHeight)) * 100;
 
             // Log 25%, 50%, 75%, 100% scroll
-            if (scrollPercent >= 25 && scrollPercent < 26) {
+            if (scrollPercent >= 25 && scrollPercent < 30 && !scrollDepthTracked[0]) {
                 console.log('25% page scrolled');
+                scrollDepthTracked[0] = true;
             }
-            if (scrollPercent >= 50 && scrollPercent < 51) {
+            if (scrollPercent >= 50 && scrollPercent < 55 && !scrollDepthTracked[1]) {
                 console.log('50% page scrolled');
+                scrollDepthTracked[1] = true;
             }
-            if (scrollPercent >= 75 && scrollPercent < 76) {
+            if (scrollPercent >= 75 && scrollPercent < 80 && !scrollDepthTracked[2]) {
                 console.log('75% page scrolled');
+                scrollDepthTracked[2] = true;
             }
-            if (scrollPercent >= 95) {
+            if (scrollPercent >= 95 && !scrollDepthTracked[3]) {
                 console.log('Page fully scrolled');
+                scrollDepthTracked[3] = true;
             }
 
             lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
