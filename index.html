@@ -55,12 +55,12 @@
     <meta name="copyright" content="© 2024 StudyWithEngineer. All rights reserved." />
 
     <!-- Favicon & App Icons -->
-    <link rel="icon" type="image/png" href="./components/favicon/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="./components/favicon/favicon.svg" />
-    <link rel="shortcut icon" href="./components/favicon/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="./components/favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" href="components/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="components/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="components/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="components/favicon/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="StudyWithEngineer" />
-    <link rel="manifest" href="./components/favicon/site.webmanifest" />
+    <link rel="manifest" href="components/favicon/site.webmanifest" />
     <meta name="theme-color" content="#ff0000">
 
     <!-- Preconnect for performance -->
@@ -697,7 +697,7 @@
             }
 
             // Load header first
-            loadComponent('header-placeholder', '../components/header.html')
+            loadComponent('header-placeholder', 'components/header.html')
                 .then(headerLoaded => {
                     if (headerLoaded) {
                         // Wait for header to be fully rendered
@@ -720,7 +720,7 @@
                         if (mainContent) {
                             mainContent.style.opacity = '1';
                         }
-                        loadComponent('footer-placeholder', '../components/footer.html');
+                        loadComponent('footer-placeholder', 'components/footer.html');
                     }
                 });
         });
