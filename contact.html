@@ -679,7 +679,7 @@
             }
 
             // Load header first
-            loadComponent('header-placeholder', '/components/header.html')
+            loadComponent('header-placeholder', 'components/header.html')
                 .then(headerLoaded => {
                     if (headerLoaded) {
                         setTimeout(() => {
@@ -690,7 +690,7 @@
                             }
 
                             // Load footer after content is visible
-                            loadComponent('footer-placeholder', '/components/footer.html')
+                            loadComponent('footer-placeholder', 'components/footer.html')
                                 .then(() => {
                                     // Initialize contact form functionality
                                     initContactForm();
@@ -700,7 +700,7 @@
                         if (mainContent) {
                             mainContent.style.opacity = '1';
                         }
-                        loadComponent('footer-placeholder', '/components/footer.html');
+                        loadComponent('footer-placeholder', 'components/footer.html');
                         initContactForm();
                     }
                 });
@@ -712,10 +712,10 @@
             const footerPlaceholder = document.getElementById('footer-placeholder');
 
             if (headerPlaceholder && headerPlaceholder.innerHTML === '') {
-                loadComponent('header-placeholder', '/components/header.html');
+                loadComponent('header-placeholder', 'components/header.html');
             }
             if (footerPlaceholder && footerPlaceholder.innerHTML === '') {
-                loadComponent('footer-placeholder', '/components/footer.html');
+                loadComponent('footer-placeholder', 'components/footer.html');
             }
         });
 
