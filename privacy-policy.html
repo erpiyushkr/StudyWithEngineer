@@ -60,12 +60,14 @@
     <meta name="ICBM" content="28.673489, 77.204285" />
 
     <!-- Favicon & App Icons -->
-    <link rel="icon" type="image/png" href="components/favicon/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="components/favicon/favicon.svg" />
-    <link rel="shortcut icon" href="components/favicon/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="components/favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" href="https://studywithengineer.com/components/favicon/favicon-96x96.png"
+        sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="https://studywithengineer.com/components/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="https://studywithengineer.com/components/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180"
+        href="https://studywithengineer.com/components/favicon/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="StudyWithEngineer" />
-    <link rel="manifest" href="components/favicon/site.webmanifest" />
+    <link rel="manifest" href="https://studywithengineer.com/components/favicon/site.webmanifest" />
 
     <!-- Preconnect for performance -->
     <link href="https://fonts.googleapis.com" rel="preconnect" />
@@ -91,7 +93,7 @@
             "@type": "Organization",
             "name": "StudyWithEngineer",
             "url": "https://studywithengineer.com",
-            "logo": "https://studywithengineer.com/logo.png",
+            "logo": "https://studywithengineer.com/components/logo.png",
             "foundingDate": "2026"
         },
         "datePublished": "2026-01-01",
@@ -224,6 +226,42 @@
             top: auto !important;
         }
         
+        /* Mobile menu animations */
+        .mobile-menu-enter {
+            animation: slideDown 0.3s ease-out;
+        }
+        
+        .mobile-menu-exit {
+            animation: slideUp 0.3s ease-in;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+        }
+        
+        /* Prevent scroll when menu is open */
+        body.menu-open {
+            overflow: hidden;
+        }
+        
         /* Mobile-specific adjustments */
         @media (max-width: 640px) {
             .mobile-center {
@@ -249,8 +287,73 @@
 <body
     class="bg-background-light dark:bg-background-dark text-black dark:text-gray-100 font-body overflow-x-hidden antialiased selection:bg-primary selection:text-white min-h-screen flex flex-col"
     itemscope itemtype="https://schema.org/WebPage">
-    <!-- Header Placeholder -->
-    <div id="header-placeholder"></div>
+    <!-- Navbar with Mobile Toggle -->
+    <nav
+        class="sticky top-0 z-50 w-full border-b border-white/5 bg-background-dark/95 backdrop-blur-md supports-[backdrop-filter]:bg-background-dark/80">
+        <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex h-20 items-center justify-between">
+                <!-- Logo with link to homepage -->
+                <a href="https://studywithengineer.com/"
+                    class="flex items-center gap-3 no-underline hover:opacity-90 transition-opacity">
+                    <div
+                        class="flex h-10 w-10 items-center justify-center rounded-full bg-white relative overflow-hidden shadow-[0_0_15px_rgba(255,0,0,0.3)]">
+                        <div class="font-display font-bold text-black text-xl tracking-tighter relative z-10">
+                            S<span class="text-primary">E</span>
+                        </div>
+                    </div>
+                    <h1 class="text-xl font-bold tracking-tight text-white font-display">StudyWith<span
+                            class="text-primary">Engineer</span></h1>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a class="text-sm font-medium hover:text-primary transition-colors text-gray-300"
+                        href="https://studywithengineer.com/">Home</a>
+                    <a class="text-sm font-medium hover:text-primary transition-colors text-gray-300"
+                        href="https://studywithengineer.com/#classes">Classes</a>
+                    <a class="text-sm font-medium hover:text-primary transition-colors text-gray-300"
+                        href="https://studywithengineer.com/#resources">Resources</a>
+                    <a class="text-sm font-medium hover:text-primary transition-colors text-gray-300"
+                        href="https://studywithengineer.com/#ncert">NCERT Solution</a>
+                    <a href="https://studywithengineer.com/contact.html">
+                        <button
+                            class="bg-primary hover:bg-primary-hover text-white px-6 py-2.5 rounded-full text-sm font-bold transition-all transform active:scale-95 shadow-[0_0_15px_rgba(255,0,0,0.4)] hover:shadow-[0_0_25px_rgba(255,0,0,0.6)]">
+                            Contact us
+                        </button>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button"
+                    class="md:hidden p-2 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-lg transition-all"
+                    aria-label="Toggle mobile menu" aria-expanded="false">
+                    <span id="menu-icon" class="material-symbols-outlined text-2xl transition-transform">menu</span>
+                </button>
+            </div>
+
+            <!-- Mobile Menu (Hidden by default) -->
+            <div id="mobile-menu" class="md:hidden hidden border-t border-white/10 pt-4 pb-6">
+                <div class="flex flex-col space-y-3">
+                    <a class="text-base font-medium hover:text-primary transition-colors text-gray-300 py-2.5 px-4 hover:bg-white/5 rounded-lg"
+                        href="https://studywithengineer.com/">Home</a>
+                    <a class="text-base font-medium hover:text-primary transition-colors text-gray-300 py-2.5 px-4 hover:bg-white/5 rounded-lg"
+                        href="https://studywithengineer.com/#classes">Classes</a>
+                    <a class="text-base font-medium hover:text-primary transition-colors text-gray-300 py-2.5 px-4 hover:bg-white/5 rounded-lg"
+                        href="https://studywithengineer.com/#resources">Resources</a>
+                    <a class="text-base font-medium hover:text-primary transition-colors text-gray-300 py-2.5 px-4 hover:bg-white/5 rounded-lg"
+                        href="https://studywithengineer.com/#ncert">NCERT Solution</a>
+                    <div class="pt-2">
+                        <a href="https://studywithengineer.com/contact.html">
+                            <button
+                                class="bg-primary hover:bg-primary-hover text-white px-6 py-3 rounded-full text-base font-bold transition-all transform active:scale-95 shadow-[0_0_15px_rgba(255,0,0,0.4)] hover:shadow-[0_0_25px_rgba(255,0,0,0.6)] w-full">
+                                Contact us
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
 
     <main class="flex-grow relative">
         <!-- Background Elements -->
@@ -346,21 +449,26 @@
                                     <span class="material-symbols-outlined text-2xl">database</span>
                                 </div>
                                 <div class="flex-1 mobile-center md:text-left">
-                                    <h2 class="text-xl sm:text-2xl md:text-3xl font-display font-bold text-white mb-3 md:mb-4 lg:mb-6 mobile-center md:text-left">
+                                    <h2
+                                        class="text-xl sm:text-2xl md:text-3xl font-display font-bold text-white mb-3 md:mb-4 lg:mb-6 mobile-center md:text-left">
                                         1. Information We Collect
                                     </h2>
-                                    <p class="text-gray-400 text-sm sm:text-base md:text-lg leading-relaxed mb-4 md:mb-6 mobile-center md:text-left">
+                                    <p
+                                        class="text-gray-400 text-sm sm:text-base md:text-lg leading-relaxed mb-4 md:mb-6 mobile-center md:text-left">
                                         We collect minimal information necessary to provide our educational services:
                                     </p>
 
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-6 mb-4 md:mb-6">
-                                        <div class="p-3 sm:p-4 md:p-5 rounded-lg md:rounded-xl bg-black/40 border border-white/10">
-                                            <h4 class="font-bold text-white mb-2 sm:mb-3 flex items-center justify-center md:justify-start gap-2">
+                                        <div
+                                            class="p-3 sm:p-4 md:p-5 rounded-lg md:rounded-xl bg-black/40 border border-white/10">
+                                            <h4
+                                                class="font-bold text-white mb-2 sm:mb-3 flex items-center justify-center md:justify-start gap-2">
                                                 <span
                                                     class="material-symbols-outlined text-primary text-sm">person</span>
                                                 <span class="text-center md:text-left">Information You Provide</span>
                                             </h4>
-                                            <ul class="text-gray-400 space-y-1 sm:space-y-2 text-xs sm:text-sm md:text-base mobile-center md:text-left">
+                                            <ul
+                                                class="text-gray-400 space-y-1 sm:space-y-2 text-xs sm:text-sm md:text-base mobile-center md:text-left">
                                                 <li class="flex items-start gap-2">
                                                     <span class="text-primary mt-0.5">•</span>
                                                     <span>Name and contact information</span>
@@ -376,13 +484,16 @@
                                             </ul>
                                         </div>
 
-                                        <div class="p-3 sm:p-4 md:p-5 rounded-lg md:rounded-xl bg-black/40 border border-white/10">
-                                            <h4 class="font-bold text-white mb-2 sm:mb-3 flex items-center justify-center md:justify-start gap-2">
+                                        <div
+                                            class="p-3 sm:p-4 md:p-5 rounded-lg md:rounded-xl bg-black/40 border border-white/10">
+                                            <h4
+                                                class="font-bold text-white mb-2 sm:mb-3 flex items-center justify-center md:justify-start gap-2">
                                                 <span
                                                     class="material-symbols-outlined text-primary text-sm">monitoring</span>
                                                 <span class="text-center md:text-left">Automatic Collection</span>
                                             </h4>
-                                            <ul class="text-gray-400 space-y-1 sm:space-y-2 text-xs sm:text-sm md:text-base mobile-center md:text-left">
+                                            <ul
+                                                class="text-gray-400 space-y-1 sm:space-y-2 text-xs sm:text-sm md:text-base mobile-center md:text-left">
                                                 <li class="flex items-start gap-2">
                                                     <span class="text-primary mt-0.5">•</span>
                                                     <span>Device and browser information</span>
@@ -401,7 +512,8 @@
 
                                     <div
                                         class="p-3 sm:p-4 md:p-5 rounded-lg md:rounded-xl bg-gradient-to-r from-black/60 to-primary/5 border border-primary/20">
-                                        <p class="text-gray-400 text-xs sm:text-sm md:text-base mobile-center md:text-left">
+                                        <p
+                                            class="text-gray-400 text-xs sm:text-sm md:text-base mobile-center md:text-left">
                                             <strong>Note:</strong> We do not collect or store payment information.
                                             All payment processing (if any) is handled externally through secure
                                             third-party providers.
@@ -420,10 +532,12 @@
                                     <span class="material-symbols-outlined text-2xl">analytics</span>
                                 </div>
                                 <div class="flex-1 mobile-center md:text-left">
-                                    <h2 class="text-xl sm:text-2xl md:text-3xl font-display font-bold text-white mb-3 md:mb-4 lg:mb-6 mobile-center md:text-left">
+                                    <h2
+                                        class="text-xl sm:text-2xl md:text-3xl font-display font-bold text-white mb-3 md:mb-4 lg:mb-6 mobile-center md:text-left">
                                         2. How We Use Your Information
                                     </h2>
-                                    <p class="text-gray-400 text-sm sm:text-base md:text-lg leading-relaxed mb-4 md:mb-6 mobile-center md:text-left">
+                                    <p
+                                        class="text-gray-400 text-sm sm:text-base md:text-lg leading-relaxed mb-4 md:mb-6 mobile-center md:text-left">
                                         We use collected information exclusively for educational purposes:
                                     </p>
 
@@ -431,31 +545,37 @@
                                         <li class="flex items-start gap-2 sm:gap-3">
                                             <span
                                                 class="material-symbols-outlined text-primary text-sm mt-0.5">check_circle</span>
-                                            <span class="text-gray-400 text-xs sm:text-sm md:text-base">To provide personalized
+                                            <span class="text-gray-400 text-xs sm:text-sm md:text-base">To provide
+                                                personalized
                                                 academic support and coaching</span>
                                         </li>
                                         <li class="flex items-start gap-2 sm:gap-3">
                                             <span
                                                 class="material-symbols-outlined text-primary text-sm mt-0.5">check_circle</span>
-                                            <span class="text-gray-400 text-xs sm:text-sm md:text-base">To communicate important
+                                            <span class="text-gray-400 text-xs sm:text-sm md:text-base">To communicate
+                                                important
                                                 updates about classes and schedules</span>
                                         </li>
                                         <li class="flex items-start gap-2 sm:gap-3">
                                             <span
                                                 class="material-symbols-outlined text-primary text-sm mt-0.5">check_circle</span>
-                                            <span class="text-gray-400 text-xs sm:text-sm md:text-base">To improve our teaching
+                                            <span class="text-gray-400 text-xs sm:text-sm md:text-base">To improve our
+                                                teaching
                                                 methodology and content quality</span>
                                         </li>
                                         <li class="flex items-start gap-2 sm:gap-3">
                                             <span
                                                 class="material-symbols-outlined text-primary text-sm mt-0.5">check_circle</span>
-                                            <span class="text-gray-400 text-xs sm:text-sm md:text-base">To enhance your learning
+                                            <span class="text-gray-400 text-xs sm:text-sm md:text-base">To enhance your
+                                                learning
                                                 experience on our platform</span>
                                         </li>
                                     </ul>
 
-                                    <div class="p-3 sm:p-4 md:p-5 rounded-lg md:rounded-xl bg-black/40 border border-primary/20">
-                                        <p class="text-gray-400 text-xs sm:text-sm md:text-base mobile-center md:text-left">
+                                    <div
+                                        class="p-3 sm:p-4 md:p-5 rounded-lg md:rounded-xl bg-black/40 border border-primary/20">
+                                        <p
+                                            class="text-gray-400 text-xs sm:text-sm md:text-base mobile-center md:text-left">
                                             <strong>Our Commitment:</strong> We never sell, rent, or trade your personal
                                             information.
                                             Your data is used exclusively to enhance your educational journey with
@@ -475,25 +595,32 @@
                                     <span class="material-symbols-outlined text-2xl">extension</span>
                                 </div>
                                 <div class="flex-1 mobile-center md:text-left">
-                                    <h2 class="text-xl sm:text-2xl md:text-3xl font-display font-bold text-white mb-3 md:mb-4 lg:mb-6 mobile-center md:text-left">
+                                    <h2
+                                        class="text-xl sm:text-2xl md:text-3xl font-display font-bold text-white mb-3 md:mb-4 lg:mb-6 mobile-center md:text-left">
                                         3. Third-Party Services
                                     </h2>
-                                    <p class="text-gray-400 text-sm sm:text-base md:text-lg leading-relaxed mb-4 md:mb-6 mobile-center md:text-left">
+                                    <p
+                                        class="text-gray-400 text-sm sm:text-base md:text-lg leading-relaxed mb-4 md:mb-6 mobile-center md:text-left">
                                         We use trusted third-party services to enhance our educational platform:
                                     </p>
 
                                     <div class="space-y-3 sm:space-y-4 md:space-y-6">
                                         <!-- YouTube -->
-                                        <div class="p-3 sm:p-4 md:p-5 rounded-lg md:rounded-xl bg-black/40 border border-white/10">
-                                            <div class="flex items-center gap-3 mb-2 sm:mb-3 justify-center md:justify-start">
+                                        <div
+                                            class="p-3 sm:p-4 md:p-5 rounded-lg md:rounded-xl bg-black/40 border border-white/10">
+                                            <div
+                                                class="flex items-center gap-3 mb-2 sm:mb-3 justify-center md:justify-start">
                                                 <div
                                                     class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-red-500/20 flex items-center justify-center">
                                                     <span
                                                         class="material-symbols-outlined text-red-500 text-sm sm:text-base">play_circle</span>
                                                 </div>
-                                                <h4 class="font-bold text-white text-base sm:text-lg text-center md:text-left">YouTube API Services</h4>
+                                                <h4
+                                                    class="font-bold text-white text-base sm:text-lg text-center md:text-left">
+                                                    YouTube API Services</h4>
                                             </div>
-                                            <p class="text-gray-400 text-xs sm:text-sm md:text-base mobile-center md:text-left">
+                                            <p
+                                                class="text-gray-400 text-xs sm:text-sm md:text-base mobile-center md:text-left">
                                                 We embed educational videos from YouTube. Google may collect viewing
                                                 data according to their
                                                 <a href="https://policies.google.com/privacy"
@@ -503,30 +630,42 @@
                                         </div>
 
                                         <!-- Communication Tools -->
-                                        <div class="p-3 sm:p-4 md:p-5 rounded-lg md:rounded-xl bg-black/40 border border-white/10">
-                                            <div class="flex items-center gap-3 mb-2 sm:mb-3 justify-center md:justify-start">
+                                        <div
+                                            class="p-3 sm:p-4 md:p-5 rounded-lg md:rounded-xl bg-black/40 border border-white/10">
+                                            <div
+                                                class="flex items-center gap-3 mb-2 sm:mb-3 justify-center md:justify-start">
                                                 <div
                                                     class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-green-500/20 flex items-center justify-center">
-                                                    <span class="material-symbols-outlined text-green-500 text-sm sm:text-base">forum</span>
+                                                    <span
+                                                        class="material-symbols-outlined text-green-500 text-sm sm:text-base">forum</span>
                                                 </div>
-                                                <h4 class="font-bold text-white text-base sm:text-lg text-center md:text-left">Communication Tools</h4>
+                                                <h4
+                                                    class="font-bold text-white text-base sm:text-lg text-center md:text-left">
+                                                    Communication Tools</h4>
                                             </div>
-                                            <p class="text-gray-400 text-xs sm:text-sm md:text-base mobile-center md:text-left">
+                                            <p
+                                                class="text-gray-400 text-xs sm:text-sm md:text-base mobile-center md:text-left">
                                                 WhatsApp and email for class communication. Messages are retained only
                                                 as long as necessary for academic coordination.
                                             </p>
                                         </div>
 
                                         <!-- GitHub Pages -->
-                                        <div class="p-3 sm:p-4 md:p-5 rounded-lg md:rounded-xl bg-black/40 border border-white/10">
-                                            <div class="flex items-center gap-3 mb-2 sm:mb-3 justify-center md:justify-start">
+                                        <div
+                                            class="p-3 sm:p-4 md:p-5 rounded-lg md:rounded-xl bg-black/40 border border-white/10">
+                                            <div
+                                                class="flex items-center gap-3 mb-2 sm:mb-3 justify-center md:justify-start">
                                                 <div
                                                     class="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-gray-500/20 flex items-center justify-center">
-                                                    <span class="material-symbols-outlined text-gray-500 text-sm sm:text-base">dns</span>
+                                                    <span
+                                                        class="material-symbols-outlined text-gray-500 text-sm sm:text-base">dns</span>
                                                 </div>
-                                                <h4 class="font-bold text-white text-base sm:text-lg text-center md:text-left">GitHub Pages (Hosting)</h4>
+                                                <h4
+                                                    class="font-bold text-white text-base sm:text-lg text-center md:text-left">
+                                                    GitHub Pages (Hosting)</h4>
                                             </div>
-                                            <p class="text-gray-400 text-xs sm:text-sm md:text-base mobile-center md:text-left">
+                                            <p
+                                                class="text-gray-400 text-xs sm:text-sm md:text-base mobile-center md:text-left">
                                                 Our hosting provider may collect server logs including IP addresses for
                                                 security and operational purposes.
                                             </p>
@@ -545,14 +684,19 @@
                                     <span class="material-symbols-outlined text-2xl">shield_lock</span>
                                 </div>
                                 <div class="flex-1 mobile-center md:text-left">
-                                    <h2 class="text-xl sm:text-2xl md:text-3xl font-display font-bold text-white mb-3 md:mb-4 lg:mb-6 mobile-center md:text-left">
+                                    <h2
+                                        class="text-xl sm:text-2xl md:text-3xl font-display font-bold text-white mb-3 md:mb-4 lg:mb-6 mobile-center md:text-left">
                                         4. Data Security & Protection
                                     </h2>
 
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-6 mb-4 md:mb-6">
-                                        <div class="p-3 sm:p-4 md:p-5 rounded-lg md:rounded-xl bg-black/40 border border-white/10">
-                                            <h4 class="font-bold text-white text-base sm:text-lg mb-2 sm:mb-3 text-center md:text-left">Technical Measures</h4>
-                                            <ul class="text-gray-400 space-y-1 sm:space-y-2 text-xs sm:text-sm md:text-base mobile-center md:text-left">
+                                        <div
+                                            class="p-3 sm:p-4 md:p-5 rounded-lg md:rounded-xl bg-black/40 border border-white/10">
+                                            <h4
+                                                class="font-bold text-white text-base sm:text-lg mb-2 sm:mb-3 text-center md:text-left">
+                                                Technical Measures</h4>
+                                            <ul
+                                                class="text-gray-400 space-y-1 sm:space-y-2 text-xs sm:text-sm md:text-base mobile-center md:text-left">
                                                 <li class="flex items-start gap-2 justify-center md:justify-start">
                                                     <span
                                                         class="material-symbols-outlined text-primary text-sm mt-0.5">check_circle</span>
@@ -571,9 +715,13 @@
                                             </ul>
                                         </div>
 
-                                        <div class="p-3 sm:p-4 md:p-5 rounded-lg md:rounded-xl bg-black/40 border border-white/10">
-                                            <h4 class="font-bold text-white text-base sm:text-lg mb-2 sm:mb-3 text-center md:text-left">Operational Practices</h4>
-                                            <ul class="text-gray-400 space-y-1 sm:space-y-2 text-xs sm:text-sm md:text-base mobile-center md:text-left">
+                                        <div
+                                            class="p-3 sm:p-4 md:p-5 rounded-lg md:rounded-xl bg-black/40 border border-white/10">
+                                            <h4
+                                                class="font-bold text-white text-base sm:text-lg mb-2 sm:mb-3 text-center md:text-left">
+                                                Operational Practices</h4>
+                                            <ul
+                                                class="text-gray-400 space-y-1 sm:space-y-2 text-xs sm:text-sm md:text-base mobile-center md:text-left">
                                                 <li class="flex items-start gap-2 justify-center md:justify-start">
                                                     <span
                                                         class="material-symbols-outlined text-primary text-sm mt-0.5">check_circle</span>
@@ -595,8 +743,10 @@
 
                                     <div
                                         class="p-3 sm:p-4 md:p-5 rounded-lg md:rounded-xl bg-gradient-to-r from-black/60 to-primary/5 border border-primary/20">
-                                        <h4 class="font-bold text-white mb-2 text-center md:text-left">Data Retention Policy</h4>
-                                        <p class="text-gray-400 text-xs sm:text-sm md:text-base mobile-center md:text-left">
+                                        <h4 class="font-bold text-white mb-2 text-center md:text-left">Data Retention
+                                            Policy</h4>
+                                        <p
+                                            class="text-gray-400 text-xs sm:text-sm md:text-base mobile-center md:text-left">
                                             We retain personal data only as long as necessary for educational purposes.
                                             Student information is typically maintained for up to 3 years after course
                                             completion,
@@ -616,47 +766,56 @@
                                     <span class="material-symbols-outlined text-2xl">gavel</span>
                                 </div>
                                 <div class="flex-1 mobile-center md:text-left">
-                                    <h2 class="text-xl sm:text-2xl md:text-3xl font-display font-bold text-white mb-3 md:mb-4 lg:mb-6 mobile-center md:text-left">
+                                    <h2
+                                        class="text-xl sm:text-2xl md:text-3xl font-display font-bold text-white mb-3 md:mb-4 lg:mb-6 mobile-center md:text-left">
                                         5. Your Rights & Choices
                                     </h2>
 
-                                    <p class="text-gray-400 text-sm sm:text-base md:text-lg leading-relaxed mb-4 md:mb-6 mobile-center md:text-left">
+                                    <p
+                                        class="text-gray-400 text-sm sm:text-base md:text-lg leading-relaxed mb-4 md:mb-6 mobile-center md:text-left">
                                         You have the following rights regarding your personal data:
                                     </p>
 
                                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4 md:mb-6">
                                         <div class="p-3 rounded-lg md:rounded-xl bg-black/40 border border-white/10">
-                                            <h4 class="font-bold text-white mb-2 text-center md:text-left">Access Rights</h4>
+                                            <h4 class="font-bold text-white mb-2 text-center md:text-left">Access Rights
+                                            </h4>
                                             <p class="text-gray-400 text-xs sm:text-sm text-center md:text-left">
                                                 Request access to your data and correct inaccuracies
                                             </p>
                                         </div>
 
                                         <div class="p-3 rounded-lg md:rounded-xl bg-black/40 border border-white/10">
-                                            <h4 class="font-bold text-white mb-2 text-center md:text-left">Deletion Rights</h4>
+                                            <h4 class="font-bold text-white mb-2 text-center md:text-left">Deletion
+                                                Rights</h4>
                                             <p class="text-gray-400 text-xs sm:text-sm text-center md:text-left">
                                                 Request deletion of your personal data under certain conditions
                                             </p>
                                         </div>
 
                                         <div class="p-3 rounded-lg md:rounded-xl bg-black/40 border border-white/10">
-                                            <h4 class="font-bold text-white mb-2 text-center md:text-left">Opt-Out Options</h4>
+                                            <h4 class="font-bold text-white mb-2 text-center md:text-left">Opt-Out
+                                                Options</h4>
                                             <p class="text-gray-400 text-xs sm:text-sm text-center md:text-left">
                                                 Opt out of non-essential communications at any time
                                             </p>
                                         </div>
 
                                         <div class="p-3 rounded-lg md:rounded-xl bg-black/40 border border-white/10">
-                                            <h4 class="font-bold text-white mb-2 text-center md:text-left">Objection Rights</h4>
+                                            <h4 class="font-bold text-white mb-2 text-center md:text-left">Objection
+                                                Rights</h4>
                                             <p class="text-gray-400 text-xs sm:text-sm text-center md:text-left">
                                                 Object to certain data processing activities
                                             </p>
                                         </div>
                                     </div>
 
-                                    <div class="p-3 sm:p-4 md:p-5 rounded-lg md:rounded-xl bg-black/40 border border-primary/20">
-                                        <h4 class="font-bold text-white mb-2 sm:mb-3 text-center md:text-left">How to Exercise Your Rights</h4>
-                                        <p class="text-gray-400 text-xs sm:text-sm md:text-base mb-3 mobile-center md:text-left">
+                                    <div
+                                        class="p-3 sm:p-4 md:p-5 rounded-lg md:rounded-xl bg-black/40 border border-primary/20">
+                                        <h4 class="font-bold text-white mb-2 sm:mb-3 text-center md:text-left">How to
+                                            Exercise Your Rights</h4>
+                                        <p
+                                            class="text-gray-400 text-xs sm:text-sm md:text-base mb-3 mobile-center md:text-left">
                                             To exercise any of these rights, please contact us at
                                             <a href="mailto:contact@studywithengineer.com"
                                                 class="text-primary hover:underline">contact@studywithengineer.com</a>.
@@ -676,7 +835,8 @@
                                     <span class="material-symbols-outlined text-2xl">contact_mail</span>
                                 </div>
                                 <div class="flex-1 mobile-center md:text-left">
-                                    <h2 class="text-xl sm:text-2xl md:text-3xl font-display font-bold text-white mb-3 md:mb-4 lg:mb-6 mobile-center md:text-left">
+                                    <h2
+                                        class="text-xl sm:text-2xl md:text-3xl font-display font-bold text-white mb-3 md:mb-4 lg:mb-6 mobile-center md:text-left">
                                         6. Contact & Support
                                     </h2>
 
@@ -684,7 +844,8 @@
                                         <!-- Contact Information -->
                                         <div class="space-y-4 sm:space-y-6">
                                             <!-- Email -->
-                                            <div class="p-3 sm:p-4 md:p-5 rounded-lg md:rounded-xl bg-black/40 border border-white/10">
+                                            <div
+                                                class="p-3 sm:p-4 md:p-5 rounded-lg md:rounded-xl bg-black/40 border border-white/10">
                                                 <div class="flex flex-col sm:flex-row items-center gap-3 mb-2 sm:mb-3">
                                                     <div
                                                         class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-2 sm:mb-0">
@@ -703,7 +864,8 @@
                                             </div>
 
                                             <!-- Address -->
-                                            <div class="p-3 sm:p-4 md:p-5 rounded-lg md:rounded-xl bg-black/40 border border-white/10">
+                                            <div
+                                                class="p-3 sm:p-4 md:p-5 rounded-lg md:rounded-xl bg-black/40 border border-white/10">
                                                 <div class="flex flex-col sm:flex-row items-center gap-3 mb-2 sm:mb-3">
                                                     <div
                                                         class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-2 sm:mb-0">
@@ -714,7 +876,8 @@
                                                         <p
                                                             class="text-xs text-gray-500 uppercase font-bold tracking-wider mb-1">
                                                             Offline Center</p>
-                                                        <p class="text-white text-sm sm:text-base md:text-lg font-medium">
+                                                        <p
+                                                            class="text-white text-sm sm:text-base md:text-lg font-medium">
                                                             2507, Punjabi Basti<br>
                                                             Ghanta Ghar, Delhi - 110007<br>
                                                             Near Old Chemist
@@ -725,7 +888,8 @@
                                         </div>
 
                                         <!-- Phone Numbers -->
-                                        <div class="p-3 sm:p-4 md:p-5 rounded-lg md:rounded-xl bg-black/40 border border-white/10">
+                                        <div
+                                            class="p-3 sm:p-4 md:p-5 rounded-lg md:rounded-xl bg-black/40 border border-white/10">
                                             <div class="flex flex-col sm:flex-row items-center gap-3 mb-3 sm:mb-4">
                                                 <div
                                                     class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-2 sm:mb-0">
@@ -735,27 +899,31 @@
                                                     <p
                                                         class="text-xs text-gray-500 uppercase font-bold tracking-wider mb-1">
                                                         Helpline Numbers</p>
-                                                    <p class="text-white text-sm sm:text-base md:text-lg font-medium">Call or
+                                                    <p class="text-white text-sm sm:text-base md:text-lg font-medium">
+                                                        Call or
                                                         WhatsApp</p>
                                                 </div>
                                             </div>
                                             <div class="space-y-2">
                                                 <div class="flex flex-col sm:flex-row items-center justify-between">
-                                                    <span class="text-gray-400 text-sm mb-1 sm:mb-0">1. Primary Contact</span>
+                                                    <span class="text-gray-400 text-sm mb-1 sm:mb-0">1. Primary
+                                                        Contact</span>
                                                     <a href="tel:919266325669"
                                                         class="text-white hover:text-primary transition-colors font-medium text-sm sm:text-base">
                                                         92663 25669
                                                     </a>
                                                 </div>
                                                 <div class="flex flex-col sm:flex-row items-center justify-between">
-                                                    <span class="text-gray-400 text-sm mb-1 sm:mb-0">2. Support Line</span>
+                                                    <span class="text-gray-400 text-sm mb-1 sm:mb-0">2. Support
+                                                        Line</span>
                                                     <a href="tel:919958493454"
                                                         class="text-white hover:text-primary transition-colors font-medium text-sm sm:text-base">
                                                         99584 93454
                                                     </a>
                                                 </div>
                                                 <div class="flex flex-col sm:flex-row items-center justify-between">
-                                                    <span class="text-gray-400 text-sm mb-1 sm:mb-0">3. General Inquiries</span>
+                                                    <span class="text-gray-400 text-sm mb-1 sm:mb-0">3. General
+                                                        Inquiries</span>
                                                     <a href="tel:919289215615"
                                                         class="text-white hover:text-primary transition-colors font-medium text-sm sm:text-base">
                                                         92892 15615
@@ -767,8 +935,10 @@
 
                                     <div
                                         class="p-3 sm:p-4 md:p-5 rounded-lg md:rounded-xl bg-gradient-to-r from-black/60 to-primary/5 border border-primary/20">
-                                        <h4 class="font-bold text-white mb-2 sm:mb-3 text-center md:text-left">Complaint Resolution</h4>
-                                        <p class="text-gray-400 text-xs sm:text-sm md:text-base mb-4 mobile-center md:text-left">
+                                        <h4 class="font-bold text-white mb-2 sm:mb-3 text-center md:text-left">Complaint
+                                            Resolution</h4>
+                                        <p
+                                            class="text-gray-400 text-xs sm:text-sm md:text-base mb-4 mobile-center md:text-left">
                                             If you have concerns about how we handle your data, please contact us first.
                                             We are committed to resolving any issues promptly and transparently.
                                         </p>
@@ -778,9 +948,12 @@
                         </div>
 
                         <!-- Policy Updates -->
-                        <div class="glass-card p-4 sm:p-6 md:p-8 rounded-xl md:rounded-2xl border-dashed border-2 border-white/10">
+                        <div
+                            class="glass-card p-4 sm:p-6 md:p-8 rounded-xl md:rounded-2xl border-dashed border-2 border-white/10">
                             <div class="text-center">
-                                <h3 class="text-lg sm:text-xl md:text-2xl font-display font-bold text-white mb-3 sm:mb-4">Policy Updates</h3>
+                                <h3
+                                    class="text-lg sm:text-xl md:text-2xl font-display font-bold text-white mb-3 sm:mb-4">
+                                    Policy Updates</h3>
                                 <p class="text-gray-400 text-sm sm:text-base md:text-lg mb-4 sm:mb-6 max-w-2xl mx-auto">
                                     We may update this policy periodically to reflect changes in our practices or legal
                                     requirements.
@@ -794,145 +967,231 @@
         </div>
     </main>
 
-    <!-- Footer Placeholder -->
-    <div id="footer-placeholder"></div>
-
-    <!-- Load Components Script -->
+    <!-- Mobile Menu JavaScript -->
     <script>
-        // Function to load HTML content into a placeholder
-        function loadComponent(placeholderId, filePath) {
-            return fetch(filePath)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`Failed to load ${filePath}: ${response.status}`);
-                    }
-                    return response.text();
-                })
-                .then(data => {
-                    // Extract the body content from the loaded HTML
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(data, 'text/html');
-                    const bodyContent = doc.body.innerHTML;
-
-                    // Inject into placeholder
-                    const placeholder = document.getElementById(placeholderId);
-                    if (placeholder) {
-                        placeholder.innerHTML = bodyContent;
-
-                        // Execute any scripts that were loaded
-                        const scripts = placeholder.getElementsByTagName('script');
-                        for (let script of scripts) {
-                            const newScript = document.createElement('script');
-                            if (script.src) {
-                                newScript.src = script.src;
-                            } else {
-                                newScript.textContent = script.textContent;
-                            }
-                            document.head.appendChild(newScript);
-                        }
-                    }
-                    return true;
-                })
-                .catch(error => {
-                    console.error('Error loading component:', error);
-                    const placeholder = document.getElementById(placeholderId);
-                    if (placeholder) {
-                        placeholder.innerHTML = `<div class="text-center p-4 text-red-500">Failed to load ${filePath}</div>`;
-                    }
-                    return false;
-                });
-        }
-
-        // Load components in correct order: Header → Content → Footer
+        // Mobile menu functionality with domain-aware navigation
         document.addEventListener('DOMContentLoaded', function () {
-            // First, hide main content to prevent FOUC
-            const mainContent = document.querySelector('main');
-            if (mainContent) {
-                mainContent.style.opacity = '0';
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = document.getElementById('menu-icon');
+            const currentDomain = 'https://studywithengineer.com';
+
+            // Check if elements exist
+            if (!mobileMenuButton || !mobileMenu || !menuIcon) {
+                console.error('Mobile menu elements not found');
+                return;
             }
 
-            // Load header first
-            loadComponent('header-placeholder', 'components/header.html')
-                .then(headerLoaded => {
-                    if (headerLoaded) {
-                        setTimeout(() => {
-                            // Show main content
-                            if (mainContent) {
-                                mainContent.style.opacity = '1';
-                                mainContent.style.transition = 'opacity 0.3s ease-in';
-                            }
-
-                            // Load footer after content is visible
-                            loadComponent('footer-placeholder', 'components/footer.html')
-                                .then(() => {
-                                    // Initialize smooth scrolling
-                                    initSmoothScrolling();
-                                });
-                        }, 50);
-                    } else {
-                        if (mainContent) {
-                            mainContent.style.opacity = '1';
-                        }
-                        loadComponent('footer-placeholder', 'components/footer.html');
-                        initSmoothScrolling();
-                    }
-                });
-        });
-
-        // Fallback: Load components on window load
-        window.addEventListener('load', function () {
-            const headerPlaceholder = document.getElementById('header-placeholder');
-            const footerPlaceholder = document.getElementById('footer-placeholder');
-
-            if (headerPlaceholder && headerPlaceholder.innerHTML === '') {
-                loadComponent('header-placeholder', 'components/header.html');
-            }
-            if (footerPlaceholder && footerPlaceholder.innerHTML === '') {
-                loadComponent('footer-placeholder', 'components/footer.html');
+            // Function to check if we're on the homepage
+            function isHomepage() {
+                const currentPath = window.location.pathname;
+                return currentPath === '/' ||
+                    currentPath === '/index.html' ||
+                    currentPath === '' ||
+                    window.location.href === currentDomain ||
+                    window.location.href === currentDomain + '/' ||
+                    window.location.href === currentDomain + '/index.html';
             }
 
-            // Initialize smooth scrolling
-            initSmoothScrolling();
-        });
+            // Function to check if we're on a specific page
+            function isOnPage(pagePath) {
+                const currentPath = window.location.pathname;
+                return currentPath === pagePath ||
+                    currentPath === pagePath + '/' ||
+                    currentPath === pagePath + '.html';
+            }
 
-        // Initialize smooth scrolling functionality
-        function initSmoothScrolling() {
-            // Handle anchor links with smooth scrolling
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    const href = this.getAttribute('href');
+            // Toggle mobile menu
+            function toggleMobileMenu() {
+                const isHidden = mobileMenu.classList.contains('hidden');
 
-                    // Skip if it's just "#"
-                    if (href === '#') return;
+                if (isHidden) {
+                    // Show menu
+                    mobileMenu.classList.remove('hidden');
+                    mobileMenu.classList.add('mobile-menu-enter');
+                    menuIcon.textContent = 'close';
+                    mobileMenuButton.setAttribute('aria-expanded', 'true');
+                    mobileMenuButton.classList.add('text-primary');
+                    document.body.classList.add('menu-open');
 
-                    const targetElement = document.querySelector(href);
+                    // Remove animation class after animation completes
+                    setTimeout(() => {
+                        mobileMenu.classList.remove('mobile-menu-enter');
+                    }, 300);
+                } else {
+                    // Hide menu
+                    closeMobileMenu();
+                }
+            }
 
-                    if (targetElement) {
+            // Close mobile menu
+            function closeMobileMenu() {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('mobile-menu-enter');
+                menuIcon.textContent = 'menu';
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+                mobileMenuButton.classList.remove('text-primary');
+                document.body.classList.remove('menu-open');
+            }
+
+            // Handle anchor link navigation
+            function handleAnchorLinkClick(e, link) {
+                const href = link.getAttribute('href');
+
+                // Check if it's an anchor link (starts with #)
+                if (href && href.includes('#')) {
+                    const [baseUrl, anchorId] = href.split('#');
+
+                    // If we're already on the homepage, scroll to the section
+                    if (isHomepage() && baseUrl.includes('studywithengineer.com')) {
                         e.preventDefault();
+                        closeMobileMenu();
 
-                        // Calculate offset for fixed header
-                        const headerHeight = 80; // Adjust this value based on your header height
-                        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
-                        const offsetPosition = targetPosition - headerHeight;
+                        setTimeout(() => {
+                            const targetElement = document.getElementById(anchorId);
+                            if (targetElement) {
+                                window.scrollTo({
+                                    top: targetElement.offsetTop - 100,
+                                    behavior: 'smooth'
+                                });
+                            } else {
+                                // If element not found, navigate to the homepage with anchor
+                                window.location.href = href;
+                            }
+                        }, 100);
+                    } else {
+                        // If not on homepage, let the link work normally
+                        closeMobileMenu();
+                        // Link will navigate to homepage with anchor
+                    }
+                } else {
+                    // Regular link, just close menu
+                    closeMobileMenu();
+                }
+            }
 
-                        // Smooth scroll
-                        window.scrollTo({
-                            top: offsetPosition,
-                            behavior: 'smooth'
-                        });
+            // Event listeners
+            mobileMenuButton.addEventListener('click', toggleMobileMenu);
 
-                        // Update URL hash without jumping
-                        history.pushState(null, null, href);
+            // Close menu when clicking on links
+            const mobileLinks = mobileMenu.querySelectorAll('a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    handleAnchorLinkClick(e, this);
+                });
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', function (event) {
+                if (!mobileMenuButton.contains(event.target) &&
+                    !mobileMenu.contains(event.target) &&
+                    !mobileMenu.classList.contains('hidden')) {
+                    closeMobileMenu();
+                }
+            });
+
+            // Close menu on escape key
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
+                    closeMobileMenu();
+                }
+            });
+
+            // Close menu on window resize (if resized to desktop)
+            let resizeTimer;
+            window.addEventListener('resize', function () {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(function () {
+                    if (window.innerWidth >= 768 && !mobileMenu.classList.contains('hidden')) {
+                        closeMobileMenu();
+                    }
+                }, 100);
+            });
+
+            // Handle scroll to close menu on iOS
+            window.addEventListener('scroll', function () {
+                if (!mobileMenu.classList.contains('hidden')) {
+                    closeMobileMenu();
+                }
+            });
+
+            // Initialize ARIA attributes
+            mobileMenu.setAttribute('aria-label', 'Mobile navigation menu');
+            mobileMenu.setAttribute('aria-hidden', 'true');
+        });
+
+        // Add smooth scrolling for anchor links
+        document.addEventListener('DOMContentLoaded', function () {
+            // Handle anchor links in table of contents
+            const anchorLinks = document.querySelectorAll('a[href^="#"]');
+            anchorLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    if (href && href !== '#') {
+                        const targetElement = document.querySelector(href);
+                        if (targetElement) {
+                            e.preventDefault();
+
+                            // Calculate offset for fixed header
+                            const headerHeight = document.querySelector('nav')?.offsetHeight || 80;
+                            const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+
+                            window.scrollTo({
+                                top: targetPosition - headerHeight,
+                                behavior: 'smooth'
+                            });
+
+                            // Update URL without page jump
+                            history.pushState(null, null, href);
+                        }
                     }
                 });
             });
 
-            // Add scroll behavior to all section anchors
+            // Add scroll margin to all sections for better mobile experience
             const sections = document.querySelectorAll('.section-anchor');
             sections.forEach(section => {
                 section.style.scrollMarginTop = '100px';
             });
-        }
+        });
+    </script>
+
+    <!-- Structured Data for FAQ -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [{
+            "@type": "Question",
+            "name": "What information does StudyWithEngineer collect?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We collect minimal information necessary for educational services: name, contact details, class preferences, and device information for security and optimization."
+            }
+        }, {
+            "@type": "Question",
+            "name": "How long does StudyWithEngineer retain student data?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We retain personal data for up to 3 years after course completion, after which it is securely deleted."
+            }
+        }, {
+            "@type": "Question",
+            "name": "Does StudyWithEngineer share data with third parties?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "We never sell or trade student data. We only use essential third-party services like YouTube for educational videos and secure hosting providers."
+            }
+        }, {
+            "@type": "Question",
+            "name": "How can I exercise my privacy rights?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "You can contact us at contact@studywithengineer.com to request access, correction, or deletion of your data. We respond within 30 days."
+            }
+        }]
+    }
     </script>
 </body>
+
 </html>

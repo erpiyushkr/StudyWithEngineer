@@ -15,12 +15,14 @@
         rel="stylesheet" />
 
     <!-- Favicon & App Icons -->
-    <link rel="icon" type="image/png" href="components/favicon/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="components/favicon/favicon.svg" />
-    <link rel="shortcut icon" href="components/favicon/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="components/favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" href="https://studywithengineer.com/components/favicon/favicon-96x96.png"
+        sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="https://studywithengineer.com/components/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="https://studywithengineer.com/components/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180"
+        href="https://studywithengineer.com/components/favicon/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="StudyWithEngineer" />
-    <link rel="manifest" href="components/favicon/site.webmanifest" />
+    <link rel="manifest" href="https://studywithengineer.com/components/favicon/site.webmanifest" />
     <meta name="theme-color" content="#ff0000">
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -53,6 +55,8 @@
                         'float': 'float 6s ease-in-out infinite',
                         'pulse-glow': 'pulse-glow 3s infinite',
                         'shimmer': 'shimmer 2.5s linear infinite',
+                        'slide-down': 'slide-down 0.3s ease-out',
+                        'fade-in': 'fade-in 0.3s ease-out',
                     },
                     keyframes: {
                         float: {
@@ -66,6 +70,14 @@
                         shimmer: {
                             '0%': { backgroundPosition: '-1000px 0' },
                             '100%': { backgroundPosition: '1000px 0' },
+                        },
+                        'slide-down': {
+                            '0%': { opacity: '0', transform: 'translateY(-10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        'fade-in': {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
                         }
                     }
                 },
@@ -96,14 +108,20 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #FF0000;
         }
+        .mobile-menu-open {
+            overflow: hidden;
+        }
     </style>
 </head>
 
 <body class="bg-background-light dark:bg-background-dark text-black dark:text-gray-100 font-body antialiased">
-    <nav class="sticky top-0 z-50 w-full border-b border-white/5 bg-background-dark/80 backdrop-blur-md">
+    <nav
+        class="sticky top-0 z-50 w-full border-b border-white/5 bg-background-dark/95 backdrop-blur-md supports-[backdrop-filter]:bg-background-dark/80">
         <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex h-20 items-center justify-between">
-                <div class="flex items-center gap-3">
+                <!-- Logo with link to homepage -->
+                <a href="https://studywithengineer.com/"
+                    class="flex items-center gap-3 no-underline hover:opacity-90 transition-opacity">
                     <div
                         class="flex h-10 w-10 items-center justify-center rounded-full bg-white relative overflow-hidden shadow-[0_0_15px_rgba(255,0,0,0.3)]">
                         <div class="font-display font-bold text-black text-xl tracking-tighter relative z-10">
@@ -112,19 +130,19 @@
                     </div>
                     <h1 class="text-xl font-bold tracking-tight text-white font-display">StudyWith<span
                             class="text-primary">Engineer</span></h1>
-                </div>
+                </a>
 
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center gap-8">
                     <a class="text-sm font-medium hover:text-primary transition-colors text-gray-300"
-                        href="index.html">Home</a>
+                        href="https://studywithengineer.com/">Home</a>
                     <a class="text-sm font-medium hover:text-primary transition-colors text-gray-300"
-                        href="#classes">Classes</a>
+                        href="https://studywithengineer.com/#classes">Classes</a>
                     <a class="text-sm font-medium hover:text-primary transition-colors text-gray-300"
-                        href="#resources">Resources</a>
+                        href="https://studywithengineer.com/#resources">Resources</a>
                     <a class="text-sm font-medium hover:text-primary transition-colors text-gray-300"
-                        href="#ncert">NCERT Solution</a>
-                    <a href="contact.html">
+                        href="https://studywithengineer.com/#ncert">NCERT Solution</a>
+                    <a href="https://studywithengineer.com/contact.html">
                         <button
                             class="bg-primary hover:bg-primary-hover text-white px-6 py-2.5 rounded-full text-sm font-bold transition-all transform active:scale-95 shadow-[0_0_15px_rgba(255,0,0,0.4)] hover:shadow-[0_0_25px_rgba(255,0,0,0.6)]">
                             Contact us
@@ -133,99 +151,220 @@
                 </div>
 
                 <!-- Mobile Menu Button -->
-                <button id="mobile-menu-button" class="md:hidden p-2 text-gray-400 hover:text-white">
-                    <span class="material-symbols-outlined">menu</span>
+                <button id="mobile-menu-button"
+                    class="md:hidden p-2 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-lg transition-all"
+                    aria-label="Toggle mobile menu" aria-expanded="false">
+                    <span id="menu-icon" class="material-symbols-outlined text-2xl transition-transform">menu</span>
                 </button>
             </div>
 
             <!-- Mobile Menu (Hidden by default) -->
-            <div id="mobile-menu" class="md:hidden hidden border-t border-white/10 mt-2 py-4">
-                <div class="flex flex-col space-y-4">
-                    <a class="text-sm font-medium hover:text-primary transition-colors text-gray-300 py-2"
-                        href="index.html">Home</a>
-                    <a class="text-sm font-medium hover:text-primary transition-colors text-gray-300 py-2"
-                        href="#classes">Classes</a>
-                    <a class="text-sm font-medium hover:text-primary transition-colors text-gray-300 py-2"
-                        href="#resources">Resources</a>
-                    <a class="text-sm font-medium hover:text-primary transition-colors text-gray-300 py-2"
-                        href="#ncert">NCERT Solution</a>
-                    <a href="contact.html">
-                        <button
-                            class="bg-primary hover:bg-primary-hover text-white px-6 py-2.5 rounded-full text-sm font-bold transition-all transform active:scale-95 shadow-[0_0_15px_rgba(255,0,0,0.4)] hover:shadow-[0_0_25px_rgba(255,0,0,0.6)] w-fit mt-2">
-                            Contact us
-                        </button>
-                    </a>
+            <div id="mobile-menu" class="md:hidden hidden border-t border-white/10 pt-4 pb-6">
+                <div class="flex flex-col space-y-3">
+                    <a class="text-base font-medium hover:text-primary transition-colors text-gray-300 py-2.5 px-4 hover:bg-white/5 rounded-lg"
+                        href="https://studywithengineer.com/">Home</a>
+                    <a class="text-base font-medium hover:text-primary transition-colors text-gray-300 py-2.5 px-4 hover:bg-white/5 rounded-lg"
+                        href="https://studywithengineer.com/#classes">Classes</a>
+                    <a class="text-base font-medium hover:text-primary transition-colors text-gray-300 py-2.5 px-4 hover:bg-white/5 rounded-lg"
+                        href="https://studywithengineer.com/#resources">Resources</a>
+                    <a class="text-base font-medium hover:text-primary transition-colors text-gray-300 py-2.5 px-4 hover:bg-white/5 rounded-lg"
+                        href="https://studywithengineer.com/#ncert">NCERT Solution</a>
+                    <div class="pt-2">
+                        <a href="https://studywithengineer.com/contact.html">
+                            <button
+                                class="bg-primary hover:bg-primary-hover text-white px-6 py-3 rounded-full text-base font-bold transition-all transform active:scale-95 shadow-[0_0_15px_rgba(255,0,0,0.4)] hover:shadow-[0_0_25px_rgba(255,0,0,0.6)] w-full">
+                                Contact us
+                            </button>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </nav>
 
     <script>
-        // Mobile menu toggle functionality - simplified for dynamic loading
-        function initMobileMenu() {
+        // Mobile menu functionality with domain-aware navigation
+        document.addEventListener('DOMContentLoaded', function () {
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = document.getElementById('menu-icon');
+            const currentDomain = 'https://studywithengineer.com';
 
-            if (mobileMenuButton && mobileMenu) {
-                // Remove any existing event listeners to prevent duplicates
-                const newButton = mobileMenuButton.cloneNode(true);
-                mobileMenuButton.parentNode.replaceChild(newButton, mobileMenuButton);
+            // Check if elements exist
+            if (!mobileMenuButton || !mobileMenu || !menuIcon) {
+                console.error('Mobile menu elements not found');
+                return;
+            }
 
-                const newMenu = mobileMenu.cloneNode(true);
-                mobileMenu.parentNode.replaceChild(newMenu, mobileMenu);
+            // Function to check if we're on the homepage
+            function isHomepage() {
+                const currentPath = window.location.pathname;
+                return currentPath === '/' ||
+                    currentPath === '/index.html' ||
+                    currentPath === '' ||
+                    window.location.href === currentDomain ||
+                    window.location.href === currentDomain + '/';
+            }
 
-                // Get fresh references after cloning
-                const freshButton = document.getElementById('mobile-menu-button');
-                const freshMenu = document.getElementById('mobile-menu');
+            // Function to check if we're on a specific page
+            function isOnPage(pagePath) {
+                const currentPath = window.location.pathname;
+                return currentPath === pagePath ||
+                    currentPath === pagePath + '/' ||
+                    currentPath === pagePath + '.html';
+            }
 
-                freshButton.addEventListener('click', function () {
-                    freshMenu.classList.toggle('hidden');
-                    freshMenu.classList.toggle('block');
+            // Toggle mobile menu
+            function toggleMobileMenu() {
+                const isHidden = mobileMenu.classList.contains('hidden');
 
-                    // Toggle menu icon
-                    const icon = freshButton.querySelector('.material-symbols-outlined');
-                    if (freshMenu.classList.contains('hidden')) {
-                        icon.textContent = 'menu';
+                if (isHidden) {
+                    // Show menu
+                    mobileMenu.classList.remove('hidden');
+                    mobileMenu.classList.add('animate-slide-down');
+                    menuIcon.textContent = 'close';
+                    mobileMenuButton.setAttribute('aria-expanded', 'true');
+                    mobileMenuButton.classList.add('text-primary');
+                    document.body.classList.add('mobile-menu-open');
+
+                    // Remove animation class after animation completes
+                    setTimeout(() => {
+                        mobileMenu.classList.remove('animate-slide-down');
+                    }, 300);
+                } else {
+                    // Hide menu
+                    closeMobileMenu();
+                }
+            }
+
+            // Close mobile menu
+            function closeMobileMenu() {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('animate-slide-down');
+                menuIcon.textContent = 'menu';
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+                mobileMenuButton.classList.remove('text-primary');
+                document.body.classList.remove('mobile-menu-open');
+            }
+
+            // Handle anchor link navigation
+            function handleAnchorLinkClick(e, link) {
+                const href = link.getAttribute('href');
+
+                // Check if it's an anchor link (starts with #)
+                if (href && href.includes('#')) {
+                    const [baseUrl, anchorId] = href.split('#');
+
+                    // If we're already on the homepage, scroll to the section
+                    if (isHomepage() && baseUrl.includes('studywithengineer.com')) {
+                        e.preventDefault();
+                        closeMobileMenu();
+
+                        setTimeout(() => {
+                            const targetElement = document.getElementById(anchorId);
+                            if (targetElement) {
+                                window.scrollTo({
+                                    top: targetElement.offsetTop - 100,
+                                    behavior: 'smooth'
+                                });
+                            } else {
+                                // If element not found, navigate to the homepage with anchor
+                                window.location.href = href;
+                            }
+                        }, 100);
                     } else {
-                        icon.textContent = 'close';
+                        // If not on homepage, let the link work normally
+                        closeMobileMenu();
+                        // Link will navigate to homepage with anchor
                     }
-                });
+                } else {
+                    // Regular link, just close menu
+                    closeMobileMenu();
+                }
+            }
 
-                // Close mobile menu when clicking on links
-                const mobileLinks = freshMenu.querySelectorAll('a, button');
-                mobileLinks.forEach(link => {
-                    link.addEventListener('click', function () {
-                        freshMenu.classList.add('hidden');
-                        freshMenu.classList.remove('block');
-                        const icon = freshButton.querySelector('.material-symbols-outlined');
-                        if (icon) {
-                            icon.textContent = 'menu';
+            // Event listeners
+            mobileMenuButton.addEventListener('click', toggleMobileMenu);
+
+            // Close menu when clicking on links
+            const mobileLinks = mobileMenu.querySelectorAll('a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    handleAnchorLinkClick(e, this);
+                });
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', function (event) {
+                if (!mobileMenuButton.contains(event.target) &&
+                    !mobileMenu.contains(event.target) &&
+                    !mobileMenu.classList.contains('hidden')) {
+                    closeMobileMenu();
+                }
+            });
+
+            // Close menu on escape key
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
+                    closeMobileMenu();
+                }
+            });
+
+            // Close menu on window resize (if resized to desktop)
+            let resizeTimer;
+            window.addEventListener('resize', function () {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(function () {
+                    if (window.innerWidth >= 768 && !mobileMenu.classList.contains('hidden')) {
+                        closeMobileMenu();
+                    }
+                }, 100);
+            });
+
+            // Handle scroll to close menu on iOS
+            window.addEventListener('scroll', function () {
+                if (!mobileMenu.classList.contains('hidden')) {
+                    closeMobileMenu();
+                }
+            });
+
+            // Initialize ARIA attributes
+            mobileMenu.setAttribute('aria-label', 'Mobile navigation menu');
+            mobileMenu.setAttribute('aria-hidden', 'true');
+        });
+
+        // Add smooth scrolling for anchor links on homepage (for desktop too)
+        document.addEventListener('DOMContentLoaded', function () {
+            function isHomepage() {
+                const currentPath = window.location.pathname;
+                return currentPath === '/' ||
+                    currentPath === '/index.html' ||
+                    currentPath === '' ||
+                    window.location.href === 'https://studywithengineer.com' ||
+                    window.location.href === 'https://studywithengineer.com/';
+            }
+
+            if (isHomepage()) {
+                // Handle desktop anchor links with smooth scrolling
+                const desktopLinks = document.querySelectorAll('.md\\:flex a[href*="#"]');
+                desktopLinks.forEach(link => {
+                    link.addEventListener('click', function (e) {
+                        const href = this.getAttribute('href');
+                        if (href && href.includes('#')) {
+                            const anchorId = href.split('#')[1];
+                            const targetElement = document.getElementById(anchorId);
+                            if (targetElement) {
+                                e.preventDefault();
+                                window.scrollTo({
+                                    top: targetElement.offsetTop - 100,
+                                    behavior: 'smooth'
+                                });
+                            }
                         }
                     });
                 });
-
-                return true;
             }
-            return false;
-        }
-
-        // Export function for main page to call
-        window.initMobileMenu = initMobileMenu;
-
-        // Auto-init if this file is loaded directly (not via component)
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', function () {
-                // Only run if not being loaded as a component
-                if (!window.isComponentLoading) {
-                    initMobileMenu();
-                }
-            });
-        } else {
-            // DOM already loaded, run immediately
-            if (!window.isComponentLoading) {
-                initMobileMenu();
-            }
-        }
+        });
     </script>
 </body>
 
